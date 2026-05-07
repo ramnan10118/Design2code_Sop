@@ -121,6 +121,32 @@ const STEPS: Step[] = [
     )
   },
   {
+    id: 'design-review',
+    title: 'Review with Design',
+    tag: 'Review',
+    color: 'c-blue',
+    body: (
+      <>
+        <p>
+          Before code goes to dev, loop in design for a final visual pass. Design
+          plays a consultant role here — not rebuilding, just sanity-checking what
+          Cursor produced.
+        </p>
+        <p><strong>What design checks:</strong></p>
+        <ul>
+          <li>Visual harmony — type scale, spacing rhythm, alignment across sections</li>
+          <li>Icon integrity — no broken glyphs, missing assets, or wrong sizes</li>
+          <li>Component usage — right component for the job, correct variants and states</li>
+          <li>Edge cases — empty, loading, error, long strings, small viewports</li>
+          <li>Token discipline — colors, radii, shadows pulled from tokens, not hardcoded</li>
+        </ul>
+        <p>
+          If design flags issues, loop back to refine. If it's clean, move to handoff.
+        </p>
+      </>
+    )
+  },
+  {
     id: 'handoff',
     title: 'Hand off to dev',
     tag: 'Handoff',
@@ -170,7 +196,7 @@ export default function PageGenerationFlow() {
 
       <div className="flow-grid">
         <div className="canvas">
-          <svg viewBox="0 0 700 500" role="img" aria-label="Page generation workflow">
+          <svg viewBox="0 0 700 580" role="img" aria-label="Page generation workflow">
             <defs>
               <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
                 <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -224,15 +250,24 @@ export default function PageGenerationFlow() {
               markerEnd="url(#arr)"
             />
 
-            {/* No path → Hand off */}
-            <line className="flow-line" x1="340" y1="330" x2="340" y2="400" strokeWidth="1" markerEnd="url(#arr)" fill="none" />
-            <text className="label-yes-no" x="368" y="365" textAnchor="middle">no</text>
+            {/* No path → Review with Design */}
+            <line className="flow-line" x1="340" y1="330" x2="340" y2="370" strokeWidth="1" markerEnd="url(#arr)" fill="none" />
+            <text className="label-yes-no" x="368" y="352" textAnchor="middle">no</text>
+
+            {/* Review with Design */}
+            <g className={`node c-blue ${sel('design-review')}`} {...nodeAttrs('design-review')}>
+              <rect x="220" y="370" width="240" height="52" rx="8" strokeWidth="1" />
+              <text className="th" x="340" y="396" textAnchor="middle" dominantBaseline="central">Review with Design</text>
+            </g>
+
+            {/* Design review → Hand off */}
+            <line className="flow-line" x1="340" y1="422" x2="340" y2="462" strokeWidth="1" markerEnd="url(#arr)" fill="none" />
 
             {/* Hand off to dev */}
             <g className={`node c-teal ${sel('handoff')}`} {...nodeAttrs('handoff')}>
-              <rect x="210" y="400" width="260" height="60" rx="8" strokeWidth="1" />
-              <text className="th" x="340" y="422" textAnchor="middle" dominantBaseline="central">Hand off to dev</text>
-              <text className="ts" x="340" y="442" textAnchor="middle" dominantBaseline="central">Branch + link</text>
+              <rect x="210" y="462" width="260" height="60" rx="8" strokeWidth="1" />
+              <text className="th" x="340" y="484" textAnchor="middle" dominantBaseline="central">Hand off to dev</text>
+              <text className="ts" x="340" y="504" textAnchor="middle" dominantBaseline="central">Branch + link</text>
             </g>
           </svg>
         </div>

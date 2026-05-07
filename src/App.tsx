@@ -1,14 +1,16 @@
 import { useState } from 'react'
 import PageGenerationFlow from './flows/PageGenerationFlow'
 import ComponentFlow from './flows/ComponentFlow'
+import CursorSetupFlow from './flows/CursorSetupFlow'
 
 const TABS = [
+  { id: 'cursor-setup', label: 'Cursor setup' },
   { id: 'page', label: 'Page generation' },
   { id: 'component', label: 'Component flow' }
 ] as const
 
 export default function App() {
-  const [active, setActive] = useState<(typeof TABS)[number]['id']>('page')
+  const [active, setActive] = useState<(typeof TABS)[number]['id']>('cursor-setup')
 
   return (
     <div className="app">
@@ -32,6 +34,9 @@ export default function App() {
         ))}
       </div>
 
+      <div className={`panel ${active === 'cursor-setup' ? 'active' : ''}`} role="tabpanel">
+        <CursorSetupFlow />
+      </div>
       <div className={`panel ${active === 'page' ? 'active' : ''}`} role="tabpanel">
         <PageGenerationFlow />
       </div>
