@@ -3,7 +3,12 @@ import CodeBlock from '../components/CodeBlock'
 const SLACK_URL = 'https://acko.slack.com/' // TODO(slack-url): replace with the #design-systems channel deep-link
 const ACKO_IT_PORTAL_URL = 'https://directory.zoho.in/directory/ackotechnology/home#/myapps'
 const CURSOR_INSTALL_URL = 'https://cursor.com/'
-const SKILL_DIR_PATH = '~/cursor/skills/acko-design-system/'
+const SKILL_SAVE_PROMPT = `Save the attached files as global Cursor skill files so they're available in every project.
+
+- Store them in ~/.cursor/skills/acko-design-system/ (create the folder if it doesn't exist).
+- Keep the exact file names, and keep the acko-motion-system folder with its references subfolder as-is.
+- If any of these files already exist there, replace them with the attached versions.
+- When done, list every file you saved with its full path.`
 
 // GitHub serves any branch or tag as a downloadable zip:
 //   Latest from main:   .../archive/refs/heads/main.zip
@@ -337,23 +342,18 @@ export default function CursorSetupFlow() {
           </p>
 
           <p>
-            Unzip it, then drop all the files into this exact folder —
-            Cursor looks for them here by name:
+            Unzip it, open a new Cursor chat, and drag all the files (including
+            the <code>acko-motion-system</code> folder) into the chat. Then
+            paste this prompt and send it — Cursor saves them as global skill
+            files so every project can use them:
           </p>
-          <CodeBlock filename="where to save">
-            {SKILL_DIR_PATH}
+          <CodeBlock filename="prompt">
+            {SKILL_SAVE_PROMPT}
           </CodeBlock>
           <p>
-            <strong>On Mac:</strong> open Finder, press{' '}
-            <code>Cmd + Shift + G</code>, paste the path above, hit Enter.
-            If the folder doesn't exist yet, Finder will let you create it on
-            the way. Drag the files in.
-          </p>
-          <p>
-            <strong>On Windows:</strong> open File Explorer and paste{' '}
-            <code>%USERPROFILE%\cursor\skills\acko-design-system\</code> into
-            the address bar. Create the folders if prompted, then drop the
-            files in.
+            Once Cursor confirms, the skills are in place. You only need to do
+            this once — re-run it whenever you download a newer set of skill
+            files.
           </p>
         </div>
       </section>
