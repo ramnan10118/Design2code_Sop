@@ -3,9 +3,8 @@ import CodeBlock from '../components/CodeBlock'
 const SLACK_URL = 'https://acko.slack.com/' // TODO(slack-url): replace with the #design-systems channel deep-link
 const ACKO_IT_PORTAL_URL = 'https://directory.zoho.in/directory/ackotechnology/home#/myapps'
 const CURSOR_INSTALL_URL = 'https://cursor.com/'
-const SKILL_SAVE_PROMPT = `Save the attached files as global Cursor skill files so they're available in every project.
+const SKILL_SAVE_PROMPT = `Save the attached files as global Cursor skill files, under a skill named acko-design-system, so they're available in every project.
 
-- Store them in ~/.cursor/skills/acko-design-system/ (create the folder if it doesn't exist).
 - Keep the exact file names, and keep the acko-motion-system folder with its references subfolder as-is.
 - If any of these files already exist there, replace them with the attached versions.
 - When done, list every file you saved with its full path.`
