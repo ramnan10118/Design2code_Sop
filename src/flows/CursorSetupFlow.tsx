@@ -67,7 +67,7 @@ npm install
 \`\`\`
 
 After install, inform the user:
-> "ACKO design system is set up and ready. All 24 components are available."
+> "ACKO design system is set up and ready. All ACKO components are available."
 
 ---
 
@@ -79,27 +79,9 @@ If setup already exists, proceed directly with the user's request using the avai
 
 ## Step 3a — Read All Skill Files Before Starting Work
 
-**Before writing any UI code**, always read **every** file in the ACKO design system skill (same filenames live under \`~/.cursor/skills/acko-design-system/\` and \`~/.claude/skills/acko-design-system/\`):
+**Before writing any UI code**, read \`~/.cursor/skills/acko-design-system/SKILL.md\` and every file it links to (primitives, semantics, components, scales, radii, shadows, typography, iconography, layout, responsiveness, cards, forms, accessibility, performance, polish). For any animation or transition work, also read \`~/.cursor/skills/acko-design-system/acko-motion-system/SKILL.md\` and its references.
 
-\`\`\`
-/Users/ramnan.arumugam/.cursor/skills/acko-design-system/SKILL.md
-/Users/ramnan.arumugam/.cursor/skills/acko-design-system/cards.md
-/Users/ramnan.arumugam/.cursor/skills/acko-design-system/colors-primitive.md
-/Users/ramnan.arumugam/.cursor/skills/acko-design-system/colors-semantic.md
-/Users/ramnan.arumugam/.cursor/skills/acko-design-system/forms-controls.md
-/Users/ramnan.arumugam/.cursor/skills/acko-design-system/iconography.md
-/Users/ramnan.arumugam/.cursor/skills/acko-design-system/layout.md
-/Users/ramnan.arumugam/.cursor/skills/acko-design-system/motion.md
-/Users/ramnan.arumugam/.cursor/skills/acko-design-system/performance.md
-/Users/ramnan.arumugam/.cursor/skills/acko-design-system/radii.md
-/Users/ramnan.arumugam/.cursor/skills/acko-design-system/scales.md
-/Users/ramnan.arumugam/.cursor/skills/acko-design-system/shadows.md
-/Users/ramnan.arumugam/.cursor/skills/acko-design-system/touch-accessibility.md
-/Users/ramnan.arumugam/.cursor/skills/acko-design-system/typography.md
-/Users/ramnan.arumugam/.cursor/skills/acko-design-system/ui-polish.md
-\`\`\`
-
-Do not skip any file. \`SKILL.md\` is the orchestrator and lists the layer model (\`colors-primitive\` → \`colors-semantic\` + scales / radii / shadows, etc.) — reading only \`SKILL.md\` is not enough.
+Do not skip files. \`SKILL.md\` is the orchestrator and lists the layer model (\`primitives\` → \`semantics\` → \`components\`, plus scales / radii / shadows / typography) — reading only \`SKILL.md\` is not enough.
 All rules in those files (tokens, colour roles, motion, forms, cards, layout, accessibility, performance, polish) apply to every UI task.
 
 ---
