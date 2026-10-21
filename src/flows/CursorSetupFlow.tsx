@@ -317,7 +317,7 @@ export default function CursorSetupFlow() {
         </div>
         <div className="setup-step-body">
           <p>
-            These are seven short notes that teach Cursor how ACKO things
+            These are simple markdown files that teach Cursor how ACKO things
             should look — what good type looks like, how motion should feel,
             what makes a form usable. Without them, generated pages will work
             but won't feel like ACKO.
@@ -331,13 +331,13 @@ export default function CursorSetupFlow() {
                 <path d="M5 11L11 5"/><path d="M6.5 5H11v4.5"/>
               </svg>
             </a>{' '}
-            — one zip lands in your Downloads folder with seven markdown
+            — one zip lands in your Downloads folder with simple markdown
             files inside: typography, motion, forms, accessibility,
-            performance, visual polish, and the overview.
+            performance, visual polish, the overview, and more.
           </p>
 
           <p>
-            Unzip it, then drop all seven files into this exact folder —
+            Unzip it, then drop all the files into this exact folder —
             Cursor looks for them here by name:
           </p>
           <CodeBlock filename="where to save">
@@ -347,7 +347,7 @@ export default function CursorSetupFlow() {
             <strong>On Mac:</strong> open Finder, press{' '}
             <code>Cmd + Shift + G</code>, paste the path above, hit Enter.
             If the folder doesn't exist yet, Finder will let you create it on
-            the way. Drag the seven files in.
+            the way. Drag the files in.
           </p>
           <p>
             <strong>On Windows:</strong> open File Explorer and paste{' '}
