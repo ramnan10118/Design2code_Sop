@@ -303,9 +303,10 @@ export default function CursorSetupFlow() {
           <p>
             Cursor uses <em>user rules</em> to load project conventions on
             every prompt. Paste the block below into{' '}
-            <strong>Cursor → Settings → Rules → User Rules</strong>, or drop
-            it into <code>~/.claude/CLAUDE.md</code> if you're driving via
-            Claude Code. This is what teaches the editor about ACKO — when to
+            <strong>Cursor → Settings → Rules → User Rules</strong>. If
+            you're driving via Claude Code, paste it into a Claude Code chat
+            instead and ask it to save this as a global rule. This is what
+            teaches the editor about ACKO — when to
             fire, what to clone, which packages to import.
           </p>
           <CodeBlock filename="acko-rule.md" downloadAs="acko-rule.md">
