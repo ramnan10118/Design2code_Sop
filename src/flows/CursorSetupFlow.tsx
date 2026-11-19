@@ -138,40 +138,44 @@ If \`.npmrc\` is missing or incorrect, restore it before running \`npm install\`
 
 ---
 
-## Available ACKO Components (v1.0.0+)
+## Available ACKO Components
 
-| Package | Component |
+The project's \`package.json\` (copied from the boilerplate) is the source of truth. Only import \`@acko/*\` packages listed there — if a package isn't in \`package.json\`, it isn't available, so don't import it or invent a replacement package.
+
+| Package | Exports |
 |---|---|
 | \`@acko/accordion\` | Accordion |
 | \`@acko/alert\` | Alert |
 | \`@acko/avatar\` | Avatar |
-| \`@acko/badge\` | Badge |
+| \`@acko/badge\` | Badge, CounterBadge |
 | \`@acko/breadcrumb\` | Breadcrumb |
 | \`@acko/button\` | Button |
 | \`@acko/calendar\` | Calendar |
-| \`@acko/card\` | Card, CardHeader, CardContent, CardFooter |
+| \`@acko/card\` | Card, CardMedia, CardBody, CardIllustration, CardBadge, CardTitle, CardNote, CardAction |
 | \`@acko/checkbox\` | Checkbox |
-| \`@acko/css\` | Global CSS tokens |
+| \`@acko/chip\` | Chip |
+| \`@acko/css\` | Component CSS |
+| \`@acko/dialog\` | Dialog |
+| \`@acko/drawer\` | Drawer |
 | \`@acko/dropdown\` | Dropdown |
-| \`@acko/field\` | Field |
+| \`@acko/form\` | Form, FormItem, FormLabel, FormMessage, useFormContext |
+| \`@acko/icons\` | Named icon components — the only icon source |
 | \`@acko/input-group\` | InputGroup |
 | \`@acko/label\` | Label |
-| \`@acko/navigation-wizard\` | NavigationWizard |
-| \`@acko/pagination\` | Pagination |
+| \`@acko/otp-input\` | OtpInput |
 | \`@acko/progress\` | Progress |
 | \`@acko/radio\` | RadioGroup |
 | \`@acko/scroll-area\` | ScrollArea |
 | \`@acko/separator\` | Separator |
 | \`@acko/skeleton\` | Skeleton |
+| \`@acko/slider\` | Slider |
+| \`@acko/surface\` | Surface |
 | \`@acko/switch\` | Switch |
-| \`@acko/table\` | Table, TableHeader, TableBody, TableRow, TableHead, TableCell |
-| \`@acko/tabs\` | Tabs |
 | \`@acko/text-input\` | TextInput |
 | \`@acko/textarea\` | Textarea |
 | \`@acko/toggle\` | Toggle |
 | \`@acko/tokens\` | Design tokens |
-| \`@acko/tooltip\` | Tooltip |
-| \`@acko/typography\` | Typography |
+| \`@acko/typography\` | Typography (takes \`textStyle\`, e.g. \`textStyle="body-md-regular"\`) |
 
 ---
 
@@ -182,12 +186,17 @@ Always import from the specific package:
 \`\`\`tsx
 import { Button } from "@acko/button";
 import { Typography } from "@acko/typography";
-import { Card, CardHeader, CardContent, CardFooter } from "@acko/card";
+import { Card, CardBody, CardTitle, CardAction } from "@acko/card";
+import { Surface } from "@acko/surface";
 import { TextInput } from "@acko/text-input";
-import { Dropdown } from "@acko/dropdown";
+import { ArrowRight } from "@acko/icons";
 \`\`\`
 
-Never use a barrel import like \`import { Button } from "@acko/ui"\` — that package does not exist.
+- \`Card\` parts are \`CardMedia\`, \`CardBody\`, \`CardTitle\`, \`CardAction\` and friends. There is no \`CardHeader\` / \`CardContent\` / \`CardFooter\` (see \`cards.md\`).
+- \`Typography\` takes \`textStyle\` (weight is part of the name, e.g. \`body-md-semibold\`). It has no \`variant\` or \`weight\` prop.
+- Icons come only from \`@acko/icons\` — no other icon library, no inline \`<svg>\`.
+- Never use a barrel import like \`import { Button } from "@acko/ui"\` — that package does not exist.
+- If the skill files and the scaffold \`src/\` disagree, follow the skill files.
 `
 
 const FILE_TREE = `your-project/
@@ -202,7 +211,7 @@ const FILE_TREE = `your-project/
 ├── src/                    ← scaffold from ACKO-component-source
 │   ├── App.tsx
 │   ├── main.tsx
-│   └── styles.css
+│   └── index.css
 └── node_modules/
     └── @acko/              ← all component packages, fetched via VPN
         ├── button/
