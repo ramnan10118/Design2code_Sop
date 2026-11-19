@@ -2,18 +2,22 @@ import CodeBlock from '../components/CodeBlock'
 
 const SLACK_URL = 'https://acko.slack.com/' // TODO(slack-url): replace with the #design-systems channel deep-link
 const ACKO_IT_PORTAL_URL = 'https://directory.zoho.in/directory/ackotechnology/home#/myapps'
-const CURSOR_INSTALL_URL = 'https://cursor.com/'
-const SKILL_SAVE_PROMPT = `Save the attached files as global Cursor skill files, under a skill named acko-design-system, so they're available in every project.
-
-- Keep the exact file names, and keep the acko-motion-system folder with its references subfolder as-is.
-- If any of these files already exist there, replace them with the attached versions.
-- When done, list every file you saved with its full path.`
+const CLAUDE_CODE_URL = 'https://claude.com/claude-code'
 
 // GitHub serves any branch or tag as a downloadable zip:
 //   Latest from main:   .../archive/refs/heads/main.zip
 //   Pinned version tag: .../archive/refs/tags/v1.0.0.zip
 // To pin a version, push a tag on the skill repo and swap the URL below.
 const SKILL_ZIP_URL = 'https://github.com/ramnan10118/Designskillfiles_Acko/archive/refs/heads/main.zip'
+
+const SKILL_INSTALL_PROMPT = `Install the ACKO design skill files as a personal Claude Code skill, so they're available in every project.
+
+1. Download ${SKILL_ZIP_URL} and unzip it.
+2. Put the unzipped files in ~/.claude/skills/acko-design-system, replacing that folder if it already exists. SKILL.md must sit directly inside it. Keep the acko-motion-system folder and its references subfolder as they are.
+3. Delete the zip and any temporary files.
+4. List every file you installed, with its full path.`
+
+const RULE_SAVE_PROMPT = `Save the ACKO rule below as a global rule in my ~/.claude/CLAUDE.md, so it applies in every project. If an ACKO section is already there, replace it with this one.`
 
 const ACKO_RULE = `# ACKO Design System Auto-Setup
 
@@ -79,7 +83,7 @@ If setup already exists, proceed directly with the user's request using the avai
 
 ## Step 3a — Read All Skill Files Before Starting Work
 
-**Before writing any UI code**, read \`~/.cursor/skills/acko-design-system/SKILL.md\` and every file it links to (primitives, semantics, components, scales, radii, shadows, typography, iconography, layout, responsiveness, cards, forms, accessibility, performance, polish). For any animation or transition work, also read \`~/.cursor/skills/acko-design-system/acko-motion-system/SKILL.md\` and its references.
+**Before writing any UI code**, read \`~/.claude/skills/acko-design-system/SKILL.md\` and every file it links to (primitives, semantics, components, scales, radii, shadows, typography, iconography, layout, responsiveness, cards, forms, accessibility, performance, polish). For any animation or transition work, also read \`~/.claude/skills/acko-design-system/acko-motion-system/SKILL.md\` and its references.
 
 Do not skip files. \`SKILL.md\` is the orchestrator and lists the layer model (\`primitives\` → \`semantics\` → \`components\`, plus scales / radii / shadows / typography) — reading only \`SKILL.md\` is not enough.
 All rules in those files (tokens, colour roles, motion, forms, cards, layout, accessibility, performance, polish) apply to every UI task.
@@ -219,13 +223,13 @@ const FILE_TREE = `your-project/
         ├── typography/
         └── ...`
 
-export default function CursorSetupFlow() {
+export default function ClaudeSetupFlow() {
   return (
     <div className="setup-doc">
       <div className="flow-header">
-        <p className="flow-title">Cursor setup</p>
+        <p className="flow-title">Claude setup</p>
         <p className="flow-desc">
-          A one-time setup so Cursor can generate ACKO pages on demand. Five
+          A one-time setup so Claude Code can generate ACKO pages on demand. Five
           minutes if you have the VPN running. Start here before either of the
           other tabs.
         </p>
@@ -252,13 +256,14 @@ export default function CursorSetupFlow() {
       <section className="setup-step">
         <div className="setup-step-head">
           <span className="setup-step-num">1</span>
-          <h3 className="setup-step-title">Get Cursor + enterprise access</h3>
+          <h3 className="setup-step-title">Get Claude Code + enterprise access</h3>
         </div>
         <div className="setup-step-body">
           <p>
-            Cursor is the AI-native editor we use for prompt-driven page
-            generation. ACKO has an enterprise plan — don't sign up with a
-            personal account, or you'll lose org features and pooled credits.
+            Claude Code is the AI coding tool we use for prompt-driven page
+            generation. You can run it in the terminal, the desktop app or
+            VS Code. ACKO has an enterprise plan — don't sign up with a
+            personal account, or you'll lose org features and pooled usage.
           </p>
           <p>
             Raise a request through the{' '}
@@ -272,15 +277,15 @@ export default function CursorSetupFlow() {
             approved, you'll be able to log in with SSO.
           </p>
           <p>
-            For the actual install of the desktop app, grab the binary from{' '}
-            <a className="ext-link" href={CURSOR_INSTALL_URL} target="_blank" rel="noopener noreferrer">
-              cursor.com
+            Then install Claude Code by following the steps on{' '}
+            <a className="ext-link" href={CLAUDE_CODE_URL} target="_blank" rel="noopener noreferrer">
+              claude.com/claude-code
               <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M5 11L11 5"/><path d="M6.5 5H11v4.5"/>
               </svg>
             </a>{' '}
-            (Mac and Windows). Install first, then log in with the enterprise
-            account once IT confirms access.
+            (Mac and Windows), and sign in with your work account once IT
+            confirms access.
           </p>
         </div>
       </section>
@@ -288,18 +293,22 @@ export default function CursorSetupFlow() {
       <section className="setup-step">
         <div className="setup-step-head">
           <span className="setup-step-num">2</span>
-          <h3 className="setup-step-title">Add the ACKO rule to Cursor</h3>
+          <h3 className="setup-step-title">Add the ACKO rule to CLAUDE.md</h3>
         </div>
         <div className="setup-step-body">
           <p>
-            Cursor uses <em>user rules</em> to load project conventions on
-            every prompt. Paste the block below into{' '}
-            <strong>Cursor → Settings → Rules → User Rules</strong>. If
-            you're driving via Claude Code, paste it into a Claude Code chat
-            instead and ask it to save this as a global rule. This is what
-            teaches the editor about ACKO — when to
-            fire, what to clone, which packages to import.
+            Claude Code reads <code>~/.claude/CLAUDE.md</code> at the start of
+            every session — it's where your global instructions live. The ACKO
+            rule below teaches Claude when to fire, what to clone and which
+            packages to import.
           </p>
+          <p>
+            Open Claude Code, paste this prompt, then paste the rule underneath
+            it and send. Let Claude save it — don't edit the file by hand.
+          </p>
+          <CodeBlock filename="prompt">
+            {RULE_SAVE_PROMPT}
+          </CodeBlock>
           <CodeBlock filename="acko-rule.md" downloadAs="acko-rule.md">
             {ACKO_RULE}
           </CodeBlock>
@@ -309,42 +318,35 @@ export default function CursorSetupFlow() {
       <section className="setup-step">
         <div className="setup-step-head">
           <span className="setup-step-num">3</span>
-          <h3 className="setup-step-title">Add ACKO's design skill files</h3>
+          <h3 className="setup-step-title">Install ACKO's design skill files</h3>
         </div>
         <div className="setup-step-body">
           <p>
-            These are simple markdown files that teach Cursor how ACKO things
+            These are simple markdown files that teach Claude how ACKO things
             should look — what good type looks like, how motion should feel,
             what makes a form usable. Without them, generated pages will work
             but won't feel like ACKO.
           </p>
 
           <p>
-            Hit{' '}
+            Claude Code loads skills from <code>~/.claude/skills</code>. Paste
+            this prompt into Claude Code and send it — Claude downloads the
+            skill files and installs them for every project:
+          </p>
+          <CodeBlock filename="prompt">
+            {SKILL_INSTALL_PROMPT}
+          </CodeBlock>
+          <p>
+            Once Claude lists the files, start a new Claude Code session so it
+            picks up the skill. Re-run the prompt whenever the skill files are
+            updated. Want to read them first?{' '}
             <a className="ext-link" href={SKILL_ZIP_URL}>
-              download skill files
+              Download the skill files
               <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M5 11L11 5"/><path d="M6.5 5H11v4.5"/>
               </svg>
-            </a>{' '}
-            — one zip lands in your Downloads folder with simple markdown
-            files inside: typography, motion, forms, accessibility,
-            performance, visual polish, the overview, and more.
-          </p>
-
-          <p>
-            Unzip it, open a new Cursor chat, and drag all the files (including
-            the <code>acko-motion-system</code> folder) into the chat. Then
-            paste this prompt and send it — Cursor saves them as global skill
-            files so every project can use them:
-          </p>
-          <CodeBlock filename="prompt">
-            {SKILL_SAVE_PROMPT}
-          </CodeBlock>
-          <p>
-            Once Cursor confirms, the skills are in place. You only need to do
-            this once — re-run it whenever you download a newer set of skill
-            files.
+            </a>
+            .
           </p>
         </div>
       </section>
@@ -358,7 +360,7 @@ export default function CursorSetupFlow() {
           <p>
             Once the rule is in place, mentioning <code>ACKO</code> in a prompt
             triggers the setup flow automatically. You don't run any of these
-            steps yourself — Cursor does:
+            steps yourself — Claude does:
           </p>
           <ol className="setup-list">
             <li>Checks <code>package.json</code> for any <code>@acko/*</code> dependency.</li>
@@ -382,7 +384,7 @@ export default function CursorSetupFlow() {
         </div>
         <div className="setup-step-body">
           <p>
-            This is what your repo looks like once Cursor finishes the
+            This is what your repo looks like once Claude finishes the
             scaffold + install. Nothing here is hidden state — it's all in
             your working tree, ready to commit.
           </p>

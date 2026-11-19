@@ -2,7 +2,7 @@
 
 A static React + Vite + TypeScript site that walks ACKO designers/devs through the Design-to-Code workflow. Three tabs in `src/App.tsx`, one file each in `src/flows/`:
 
-- `CursorSetupFlow.tsx` — Cursor setup (install, ACKO rule, skill files, what happens on "ACKO" prompts)
+- `ClaudeSetupFlow.tsx` — Claude setup (Claude Code access, ACKO rule in CLAUDE.md, skill install, what happens on "ACKO" prompts)
 - `PageGenerationFlow.tsx` — page generation flow
 - `ComponentFlow.tsx` — component flow
 
@@ -26,18 +26,21 @@ Same for `gh` commands: prefix with `GH_TOKEN=$(gh auth token --user ramnan10118
 
 ## Skill files — two places to keep in sync
 
-- The site's "download skill files" link (`SKILL_ZIP_URL` in `CursorSetupFlow.tsx`) serves the GitHub zip of `ramnan10118/Designskillfiles_Acko`. That repo is the local folder `~/.cursor/skills/acko-design-system/` — commit and push there when skill files change.
+- `SKILL_ZIP_URL` in `ClaudeSetupFlow.tsx` (used by the install prompt and the download link) serves the GitHub zip of `ramnan10118/Designskillfiles_Acko`. That repo is the local folder `~/.claude/skills/acko-design-system/` — commit and push there when skill files change. (`~/.cursor/skills/acko-design-system/` is an older clone; don't edit it.)
 - `Skill files - Acko.zip` in this repo is a bundled copy. Rebuild it from that folder (all `*.md` + `acko-motion-system/`, no `.DS_Store`/`__MACOSX`/nested zips).
 
 ## The ACKO rule
 
-`ACKO_RULE` in `CursorSetupFlow.tsx` is the rule users paste into Cursor (or ask Claude Code to save as a global rule). Keep it in sync with the ACKO section of `~/.claude/CLAUDE.md`. Conventions:
+`ACKO_RULE` in `ClaudeSetupFlow.tsx` is the rule users ask Claude Code to save into `~/.claude/CLAUDE.md`. Keep it in sync with the ACKO section of `~/.claude/CLAUDE.md`. Conventions:
 
-- Never hardcode a personal path (`/Users/<name>/...`) — use `~/.cursor/skills/...`.
+- Never hardcode a personal path (`/Users/<name>/...`) — use `~/.claude/skills/...`.
 - Step 3a points at `SKILL.md` and "every file it links to" rather than listing files, so it survives skill file changes. Don't reintroduce a file list.
 - Don't hardcode counts (number of components, number of skill files) in user-facing copy.
 
 ## Setup-page copy decisions
 
-- Skill files are installed by dragging them into a Cursor chat with the `SKILL_SAVE_PROMPT` prompt, not by copying into a folder manually (the manual path didn't work for users). The prompt names the skill `acko-design-system` but intentionally doesn't spell out the folder path.
-- For Claude Code users, step 2 says to paste the rule into a Claude Code chat and ask it to save it as a global rule — not to edit `~/.claude/CLAUDE.md` by hand.
+- The page targets Claude Code only — no Cursor references.
+- No personal name in page copy. The GitHub URLs still contain the `ramnan10118` username; the user chose to keep them working rather than move the repos.
+- Step 2: users paste `RULE_SAVE_PROMPT` plus the rule into Claude Code and let it save to `~/.claude/CLAUDE.md` — not edit the file by hand.
+- Step 3: users paste `SKILL_INSTALL_PROMPT` into Claude Code, which downloads the zip and installs it to `~/.claude/skills/acko-design-system` (the path Step 3a of the rule reads). Not a manual copy.
+- Keep the "ACKO Dev VPN required" callout as is.

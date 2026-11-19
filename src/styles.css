@@ -381,7 +381,7 @@ svg { display: block; width: 100%; height: auto; }
   color: var(--text-muted);
 }
 
-/* === Cursor Setup tab === */
+/* === Claude Setup tab === */
 
 .setup-doc {
   max-width: 820px;

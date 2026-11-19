@@ -19,7 +19,7 @@ const STEPS: Step[] = [
         <p>
           Pull the component-source repo locally. Once cloned, the{' '}
           <code>/handoff</code> and <code>/preview</code> agents become
-          available in your Cursor workspace.
+          available in Claude Code when you open the repo.
         </p>
         <p>One-time setup per project.</p>
       </>

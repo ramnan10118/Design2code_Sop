@@ -11,13 +11,13 @@ type Step = {
 const STEPS: Step[] = [
   {
     id: 'prompt',
-    title: 'Prompt Cursor',
+    title: 'Prompt Claude',
     tag: 'Action',
     color: 'c-purple',
     body: (
       <>
         <p>
-          Open Cursor and describe the page in plain language. The keyword{' '}
+          Open Claude Code and describe the page in plain language. The keyword{' '}
           <code>ACKO</code> in your prompt fires the setup rule.
         </p>
         <p><strong>Example prompts:</strong></p>
@@ -27,7 +27,7 @@ const STEPS: Step[] = [
           <li>"ACKO landing page with hero, three feature cards, CTA"</li>
         </ul>
         <p>
-          Be specific about layout — Cursor follows your description's structure
+          Be specific about layout — Claude follows your description's structure
           closely. Vague prompts → generic pages.
         </p>
       </>
@@ -41,10 +41,10 @@ const STEPS: Step[] = [
     body: (
       <>
         <p>
-          Cursor reads the ACKO rule, scaffolds the workspace if needed, then
+          Claude reads the ACKO rule, scaffolds the workspace if needed, then
           writes the page using <code>@acko/*</code> packages and design tokens.
         </p>
-        <p><strong>Behind the scenes (nothing for you to do — Cursor handles it):</strong></p>
+        <p><strong>Behind the scenes (nothing for you to do — Claude handles it):</strong></p>
         <ul>
           <li>Checks <code>package.json</code> for <code>@acko/*</code> deps</li>
           <li>Checks <code>.npmrc</code> for the ACKO Nexus registry</li>
@@ -63,7 +63,7 @@ const STEPS: Step[] = [
     body: (
       <>
         <p>
-          Cursor starts the dev server and prints a localhost URL. Open it to see
+          Claude starts the dev server and prints a localhost URL. Open it to see
           the page running with real ACKO components.
         </p>
         <p><strong>Quick checklist:</strong></p>
@@ -108,7 +108,7 @@ const STEPS: Step[] = [
           full design controls — move, recolour, restructure.
         </p>
         <p>
-          When you're done, prompt Cursor again. It pulls your Figma changes back
+          When you're done, prompt Claude again. It pulls your Figma changes back
           into code via the same MCP bridge.
         </p>
         <p>
@@ -130,7 +130,7 @@ const STEPS: Step[] = [
         <p>
           Before code goes to dev, loop in design for a final visual pass. Design
           plays a consultant role here — not rebuilding, just sanity-checking what
-          Cursor produced.
+          Claude produced.
         </p>
         <p><strong>What design checks:</strong></p>
         <ul>
@@ -203,10 +203,10 @@ export default function PageGenerationFlow() {
               </marker>
             </defs>
 
-            {/* Prompt Cursor */}
+            {/* Prompt Claude */}
             <g className={`node c-purple ${sel('prompt')}`} {...nodeAttrs('prompt')}>
               <rect x="200" y="20" width="280" height="60" rx="8" strokeWidth="1" />
-              <text className="th" x="340" y="42" textAnchor="middle" dominantBaseline="central">Prompt Cursor</text>
+              <text className="th" x="340" y="42" textAnchor="middle" dominantBaseline="central">Prompt Claude</text>
               <text className="ts" x="340" y="62" textAnchor="middle" dominantBaseline="central">Mention "ACKO" to load components</text>
             </g>
             <line className="flow-line" x1="340" y1="80" x2="340" y2="104" strokeWidth="1" markerEnd="url(#arr)" fill="none" />
@@ -240,7 +240,7 @@ export default function PageGenerationFlow() {
               <text className="th" x="110" y="285" textAnchor="middle" dominantBaseline="central">Refine in Figma</text>
             </g>
 
-            {/* Dashed loop back to Prompt Cursor */}
+            {/* Dashed loop back to Prompt Claude */}
             <path
               className="flow-line"
               d="M 110 259 C 110 128, 170 128, 240 128"
